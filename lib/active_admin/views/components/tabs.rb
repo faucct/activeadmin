@@ -16,7 +16,9 @@ module ActiveAdmin
 
       def build_menu_item(title, options, &block)
         options = options.reverse_merge({})
-        li { link_to title, "##{title.parameterize}", options }
+        li(class: ('ui-tabs-active' if options.delete(:active))) do
+          link_to title, "##{title.parameterize}", options
+        end
       end
 
       def build_content_item(title, options, &block)

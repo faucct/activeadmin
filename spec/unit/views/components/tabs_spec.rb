@@ -35,5 +35,33 @@ describe ActiveAdmin::Views::Tabs do
         expect(tabs.find_by_tag('span').first.content).to eq('tab 1')
       end
     end
+
+    context "when creating an inactive tab" do
+      let(:tabs) do
+        render_arbre_component do
+          tabs do
+            tab :active, active: false
+          end
+        end
+      end
+
+      it "should create active first and inactive second tab" do
+        expect(tabs.find_by_tag('li').first.class_names).to be_empty
+      end
+    end
+
+    context "when creating an active tab" do
+      let(:tabs) do
+        render_arbre_component do
+          tabs do
+            tab :active, active: true
+          end
+        end
+      end
+
+      it "should create active first and inactive second tab" do
+        expect(tabs.find_by_tag('li').first.class_names).to include "ui-tabs-active"
+      end
+    end
   end
 end
